@@ -11,7 +11,6 @@ using Microsoft.ML.OnnxRuntime.Tensors;
 
 namespace MicroBenchmarkORT
 {
-    [ShortRunJob]
     [NativeMemoryProfiler]
     [MemoryDiagnoser]
     public class DemoOrtBenchmark
@@ -22,9 +21,9 @@ namespace MicroBenchmarkORT
         [GlobalSetup]
         public void Setup()
         {
-            //var options = new SessionOptions();
-            //options.AppendExecutionProvider_CPU(0);
-            _session = new InferenceSession("model/mnist-8.onnx");
+            var options = new SessionOptions();
+            options.AppendExecutionProvider_CPU(0);
+            _session = new InferenceSession("model/mnist-8.onnx", options);
 
             var inputMetadata = _session.InputMetadata;
 
